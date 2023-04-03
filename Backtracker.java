@@ -1,6 +1,6 @@
 import java.util.Set;
 
-public class Backtracker <T extends Backtrackable<K>, K extends Backtrackable<K>>
+public class Backtracker <T extends Backtrackable<K>, K extends Object>
 {
     private T object;
     private Set<K> choices; 
@@ -29,5 +29,10 @@ public class Backtracker <T extends Backtrackable<K>, K extends Backtrackable<K>
     public T getBacktrackableObject()
     {
         return object;
+    }
+
+    public String toString()
+    {
+        return object.toString();
     }
 }

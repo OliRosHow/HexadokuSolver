@@ -25,11 +25,14 @@ public class HexadokuBoard implements Backtrackable<Character>
                 successful = false;
         }
         if(successful)
-            board[entryPoint[0]][entryPoint[1]] = ch;
-
-        for(int i = 0; i < 16 && !found; i++)
         {
-            for(int j = 0; j < 16 && !found; j++)
+            board[entryPoint[0]][entryPoint[1]] = ch;
+            numberOfBlankSpaces--;
+        }
+
+        for(int i = entryPoint[0]; i < 16 && !found; i++)
+        {
+            for(int j = entryPoint[1]; j < 16 && !found; j++)
             {
                 if(board[i][j] == '-')
                 {
@@ -51,5 +54,21 @@ public class HexadokuBoard implements Backtrackable<Character>
     public Set<Character> getChoices()
     {
         return choices;
+    }
+
+    public String toString()
+    {
+        String result = "";
+
+        for(int i = 0; i < 16; i++)
+        {
+            for(int j = 0; j < 16; j++)
+            {
+                result += board[i][j];
+            }
+            result += "\n";
+        }
+
+        return result;
     }
 }
