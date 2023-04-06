@@ -1,9 +1,9 @@
-import java.util.Set;
+import java.util.List;
 
 public class Backtracker <T extends Backtrackable<K>, K extends Object>
 {
     private T object;
-    private Set<K> choices; 
+    private List<K> choices; 
 
     public Backtracker(T object)
     {
@@ -18,12 +18,16 @@ public class Backtracker <T extends Backtrackable<K>, K extends Object>
             if(object.add(choice))
             {
                 if(object.solved())
+                {
                     this.object = object;
+                }
                 else
+                {
                     solve(object);
-
+                }
             }
         }
+     
     }
 
     public T getBacktrackableObject()

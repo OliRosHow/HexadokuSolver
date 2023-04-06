@@ -1,7 +1,5 @@
-import java.util.NoSuchElementException;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class HexadokuBoardBuilder 
 {
@@ -29,9 +27,9 @@ public class HexadokuBoardBuilder
         return this.board;
     }
 
-    public int[] buildEntryPoint()
+    public Integer[] buildEntryPoint()
     {
-        int[] point = {0, 0};
+        Integer[] point = {0, 0};
         boolean found = false;
         for(int i = 0; i < 16 && !found; i++)
         {
@@ -48,9 +46,9 @@ public class HexadokuBoardBuilder
         return point;
     }
 
-    public Set<Character> buildChoices()
+    public ArrayList<Character> buildChoices()
     {
-        Set<Character> choices = new HashSet<>();
+        ArrayList<Character> choices = new ArrayList<>();
 
         choices.add('0');
         choices.add('1');
@@ -78,7 +76,7 @@ public class HexadokuBoardBuilder
         {
             for(int j = 0; j < 16; j++)
             {
-                if(board[i][j] == '-')
+                if(board[i][j].equals(new Character('-')))
                     blankSpaces++;
             }
         }
