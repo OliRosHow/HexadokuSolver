@@ -27,52 +27,127 @@ public class HexadokuBoard implements Backtrackable<Character>
         {
             board[entryPoint[0]][entryPoint[1]] = ch;
             numberOfBlankSpaces--;
-        }
-        Integer[] temp = {new Integer(entryPoint[0]), new Integer(entryPoint[1])};
-        previousPoints.push(temp);
+            Integer[] temp = {new Integer(entryPoint[0]), new Integer(entryPoint[1])};
+            previousPoints.push(temp);
 
-        for(int i = entryPoint[0]; i < 16 && !found; i++)
-        {
-            for(int j = entryPoint[1]; j < 16 && !found; j++)
+    
+            for(int i = 0; i < 16 && !found; i++)
             {
-                if(board[i][j] == '-')
+                for(int j = 0; j < 16 && !found; j++)
                 {
-                    entryPoint[0] = i;
-                    entryPoint[1] = j;
-                    found = true;
+                    if(board[i][j] == '-')
+                    {
+                        entryPoint[0] = i;
+                        entryPoint[1] = j;
+                        found = true;
+                    }
                 }
             }
         }
 
+
         return successful;
     }
 
-    public boolean offer(Character ch)
+
+
+    public Integer[] getEntryPoint()
+    {
+        return entryPoint;
+    }
+
+     public boolean offer(Character ch)
+     {
+         boolean successful = true;
+ 
+         for(int i = 0; i < 16 && successful; i++)
+         {
+             if(board[entryPoint[0]][i] == ch || board[i][entryPoint[1]] == ch || board[(i % 4) +(4 * (entryPoint[0] / 4))][(i / 4) + (4 * (entryPoint[1] / 4)) ] == ch)
+                 successful = false;
+         }
+ 
+         return successful;
+     }
+    //public boolean offer(Character ch)
+   // {
+    //    return checkRow(ch) && checkColum(ch) && checkBox(ch);
+    //}
+
+    private boolean checkRow(Character ch)
     {
         boolean successful = true;
-
-        for(int i = 0; i < 16 && successful; i++)
+        for(int i = 0; i < 16; i++)
         {
-            if(board[entryPoint[0]][i] == ch || board[i][entryPoint[1]] == ch || board[(i % 4) +(4 * (entryPoint[0] / 4))][(i / 4) + (4 * (entryPoint[1] / 4)) ] == ch)
+            if(board[i][entryPoint[1]] == ch) 
                 successful = false;
         }
 
         return successful;
     }
 
+    private boolean checkColum(Character ch)
+    {
+        boolean successful = true;
+        for(int i = 0; i < 16; i++)
+        {
+            if(board[entryPoint[0]][i] == ch) 
+                successful = false;
+        }
+
+        return successful;
+    }
+
+    private boolean checkBox(Character ch)
+    {
+        boolean successful = true;
+        for(int i = 4*(entryPoint[0]/4); i < 4; i++)
+        {
+            for(int j = 4*(entryPoint[1]/4); j < 4; j++)
+            {
+                if(board[i][j] == ch) 
+                    successful = false;
+            }
+        }
+
+        return successful;
+    }
+
+
+
+
     public Character remove()
     {
-        board[entryPoint[0]][entryPoint[1]] = '-';
-        entryPoint = previousPoints.pop();
         Character removed = board[entryPoint[0]][entryPoint[1]];
         board[entryPoint[0]][entryPoint[1]] = '-';
         numberOfBlankSpaces++;
         return removed;
     }
+    public Character backtrack()
+    {
+        board[entryPoint[0]][entryPoint[1]] = '-';
+        entryPoint = previousPoints.pop();
+        Character removed = board[entryPoint[0]][entryPoint[1]];
+        board[entryPoint[0]][entryPoint[1]] = '-';
+
+        return removed;
+    }
+
+    
 
     public boolean solved()
     {
-        return numberOfBlankSpaces == 0;
+        boolean solved = true;
+
+        for(int i = 0; i < 16; i++)
+        {
+            for(int j = 0; j < 16; j++)
+            {
+                if(board[i][j] == '-')
+                    solved = false;
+            }
+        }
+
+        return solved;
     }
 
     public List<Character> getChoices()
@@ -88,9 +163,17 @@ public class HexadokuBoard implements Backtrackable<Character>
         {
             for(int j = 0; j < 16; j++)
             {
-                result += board[i][j];
+                if(j == 15 || j % 4 != 3)
+                    result += board[i][j] + " ";
+                else
+                    result += board[i][j] + " | ";
+
             }
-            result += "\n";
+
+            if(i != 15 && i % 4 == 3)
+                result += "\n-------------------------------------\n";
+            else
+                result += "\n";
         }
 
         return result;

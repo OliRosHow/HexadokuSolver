@@ -52,6 +52,7 @@ public class HexadokuBoardBuilder
 
         choices.add('0');
         choices.add('1');
+        choices.add('2');
         choices.add('3');
         choices.add('4');
         choices.add('5');
