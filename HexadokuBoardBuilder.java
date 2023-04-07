@@ -3,20 +3,16 @@ import java.util.ArrayList;
 
 public class HexadokuBoardBuilder 
 {
-    Character[][] board = new Character[16][16];
+    private Character[][] board = new Character[16][16];
 
     public HexadokuBoardBuilder(Scanner in)
     {
         String line;
-
             for(int i = 0; i < 16; i++)
             {
                 line = in.nextLine();
-
                 for(int j = 0; j < 16; j++)
-                {
                     this.board[i][j] = (Character) line.charAt(j);
-                }
 
             }
 
@@ -35,7 +31,7 @@ public class HexadokuBoardBuilder
         {
             for(int j = 0; j < 16 && !found; j++)
             {
-                if(board[i][j].equals(new Character('-')))
+                if(board[i][j] == '-')
                 {
                     point[0] = i;
                     point[1] = j;
@@ -69,21 +65,4 @@ public class HexadokuBoardBuilder
 
         return choices;
     }
-
-    public int buildNumberOfBlackSpaces()
-    {
-        int blankSpaces = 0;
-        for(int i = 0; i < 16; i++)
-        {
-            for(int j = 0; j < 16; j++)
-            {
-                if(board[i][j].equals(new Character('-')))
-                    blankSpaces++;
-            }
-        }
-
-        return blankSpaces;
-    }
-
-
 }

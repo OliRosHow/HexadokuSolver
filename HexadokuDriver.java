@@ -6,20 +6,13 @@ public class HexadokuDriver
 {
     public static void main(String[] args) throws FileNotFoundException
     {
-        Scanner in = new Scanner(new File("Hexaduko1A.txt"));
+        Scanner in = new Scanner(new File(args[0]));
         HexadokuBoardBuilder builder = new HexadokuBoardBuilder(in);
         Backtrackable<Character> board = new HexadokuBoard(builder);
-        Backtracker<Backtrackable<Character>, Character> solution = new Backtracker<>(board);
+        Backtracker<Backtrackable<Character>, Character> solver = new Backtracker<>(board);
 
-
-
-        System.out.println(solution.solve(board));
-
-
-    
+        solver.solve(board);
 
         System.out.println(board);
-
-    }
-    
+    }   
 }

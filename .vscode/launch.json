@@ -1,0 +1,14 @@
+{
+    "configurations": [
+
+        {
+            "type": "java",
+            "name": "Launch with Arguments Prompt",
+            "request": "launch",
+            "mainClass": "HexadokuDriver",
+            "args": "Hexaduko2A.txt"
+        }
+
+
+    ]
+}

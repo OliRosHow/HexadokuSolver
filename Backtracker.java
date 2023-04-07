@@ -13,34 +13,17 @@ public class Backtracker <T extends Backtrackable<K>, K extends Object>
 
     public boolean solve(T object)
     {
-        
-            for(int i = 0; i < choices.size(); i++)
+        for(K choice: choices)
+        {
+            if(object.add(choice))
             {
-                if(object.add(choices.get(i)))
-                {
-                        if(solve(object))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            if(!object.solved())
-                            {
-                                object.backtrack();
-                            }
-                        }
-
-
-                }
+                    if(solve(object))
+                        return true;
+                    else if(!object.solved())
+                        object.backtrack();        
             }
-        
-
+        }
         return false;
-    }
-
-    public T getBacktrackableObject()
-    {
-        return object;
     }
 
     public String toString()
