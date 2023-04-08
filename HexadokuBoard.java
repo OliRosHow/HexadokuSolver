@@ -1,7 +1,9 @@
 import java.util.List;
 import java.util.LinkedList;
 import java.util.ArrayList;
-
+/**
+ * this class is a backtrackable hexadoku board
+ */
 public class HexadokuBoard implements Backtrackable<Character>
 {
     private Character[][] board;
@@ -9,13 +11,20 @@ public class HexadokuBoard implements Backtrackable<Character>
     private ArrayList<Character> choices;
     private LinkedList<Integer[]> previousPoints = new LinkedList<>();
 
+    /**
+     * takes a builder object and initializes all of the object parameters
+     * @param builder the HexadokuBoardBuilder object linked to the unsolved board file
+     */
     public HexadokuBoard(HexadokuBoardBuilder builder)
     {
         this.board = builder.buildBoard();
         this.entryPoint = builder.buildEntryPoint();
         this.choices = builder.buildChoices();
     }
-
+    /**
+     * attempts to add a Character at the current cursor possition
+     * @return if the Character cannot be added because it violates the rules of hexadoku
+     */
     public boolean add(Character ch)
     {   
         boolean successful = this.offer(ch);
@@ -30,7 +39,10 @@ public class HexadokuBoard implements Backtrackable<Character>
 
         return successful;
     }
-
+    /**
+     * moves the entry curror to the next empty space
+     * @return the zero-indexed possition of the next emptyspace in a Integer array of length 2
+     */
     private Integer[] seek()
     {
         Integer[] point = {0,0};
@@ -48,7 +60,11 @@ public class HexadokuBoard implements Backtrackable<Character>
         }
         return point;
     }
-
+    /**
+     * tests a Character at the current cursor possition
+     * @param ch the Character to be tested
+     * @return if this Character can be added here
+     */
     private boolean offer(Character ch)
     {
          boolean successful = true;
@@ -59,14 +75,19 @@ public class HexadokuBoard implements Backtrackable<Character>
          }
          return successful;
     }
-
+    /**
+     * resets the state of the board back to before the most immediate add
+     */
     public void backtrack()
     {
         board[entryPoint[0]][entryPoint[1]] = '-';
         entryPoint = previousPoints.pop();
         board[entryPoint[0]][entryPoint[1]] = '-';
     }
-
+    /**
+     * checks to see if the board is solved
+     * @return true if there are no more empty spaces and false otherwise
+     */
     public boolean solved()
     {
         boolean solved = true;
@@ -80,12 +101,18 @@ public class HexadokuBoard implements Backtrackable<Character>
         }
         return solved;
     }
-
+    /**
+     * gets a List of the choices 
+     * @return a Character List of all choices linked to this object
+     */
     public List<Character> getChoices()
     {
         return choices;
     }
-
+    /**
+     * creates a view of the current state of the board
+     * @return a String to visualize the board
+     */
     public String toString()
     {
         StringBuilder result = new StringBuilder();
