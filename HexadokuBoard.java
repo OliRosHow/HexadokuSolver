@@ -28,7 +28,7 @@ public class HexadokuBoard implements Backtrackable<Character>
     public boolean add(Character ch)
     {   
         boolean successful = this.offer(ch);
-
+        
         if(successful)
         {
             board[entryPoint[0]][entryPoint[1]] = ch;
@@ -39,27 +39,42 @@ public class HexadokuBoard implements Backtrackable<Character>
 
         return successful;
     }
+
     /**
-     * moves the entry curror to the next empty space
-     * @return the zero-indexed possition of the next emptyspace in a Integer array of length 2
+     * moves the entry curror to the next empty space with the fewest number of choices
+     * @return the zero-indexed possition of the next emptyspace with the fewest number of choices in a Integer array of length 2
      */
     private Integer[] seek()
     {
         Integer[] point = {0,0};
+        int minChoices = 17;
+
         for(int i = 0; i < 16; i++)
         {
             for(int j = 0; j < 16; j++)
-            {
+            { 
                 if(board[i][j] == '-')
                 {
-                    point[0] = i;
-                    point[1] = j;
-                    return point;
+                    int numChoices = 0;
+                    entryPoint[0] = i;
+                    entryPoint[1] = j;
+                    for(Character choice: choices)
+                    {
+                        if(offer(choice))
+                            numChoices++;
+                    }
+                    if(numChoices < minChoices)
+                    {
+                        point[0] = i;
+                        point[1] = j;
+                        minChoices = numChoices;
+                    }
                 }
             }
         }
         return point;
     }
+
     /**
      * tests a Character at the current cursor possition
      * @param ch the Character to be tested
@@ -127,7 +142,7 @@ public class HexadokuBoard implements Backtrackable<Character>
                     result.append(board[i][j] + " | ");
             }
             if(i != 15 && i % 4 == 3)
-                result.append("\n-------------------------------------\n");
+                result.append("\n--------+---------+---------+--------\n");
             else
                 result.append("\n");
         }

@@ -19,7 +19,9 @@ public class HexadokuDriver
         Backtrackable<Character> board = new HexadokuBoard(builder);
         Backtracker<Backtrackable<Character>, Character> solver = new Backtracker<>(board);
 
+
         solver.solve(board);
+
 
         System.out.println(board);
     }   

@@ -25,7 +25,11 @@ public class Backtracker <T extends Backtrackable<K>, K extends Object>
         for(K choice: choices)
         {
             if(object.add(choice))
-            {
+            {       /* 
+                    //Uncomment the following code if you want to watch the batracker solve it
+                    System.out.print("\033[H\033[2J");
+                    System.out.println(object);
+                    */
                     if(solve(object))
                         return true;
                     else if(!object.solved())

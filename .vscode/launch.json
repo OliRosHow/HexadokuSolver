@@ -1,14 +1,18 @@
 {
     "configurations": [
-
+        {
+            "type": "java",
+            "name": "fixFile",
+            "request": "launch",
+            "mainClass": "fixFile",
+            "projectName": "Program 3_bd6d9255"
+        },
         {
             "type": "java",
             "name": "Launch with Arguments Prompt",
             "request": "launch",
             "mainClass": "HexadokuDriver",
-            "args": "Hexaduko2A.txt"
+            "args": "asamshaExample0F.txt"
         }
-
-
     ]
 }

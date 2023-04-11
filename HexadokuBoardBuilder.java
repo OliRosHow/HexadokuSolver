@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class HexadokuBoardBuilder 
 {
     private Character[][] board = new Character[16][16];
+    private Character[] choices = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
     /**
      * constructor for the builder object
      * @param in the Scanner object linked to the file with the unsolved hexadoku puzzle
@@ -37,16 +38,16 @@ public class HexadokuBoardBuilder
     public Integer[] buildEntryPoint()
     {
         Integer[] point = {0, 0};
-        boolean found = false;
-        for(int i = 0; i < 16 && !found; i++)
+
+        for(int i = 0; i < 16; i++)
         {
-            for(int j = 0; j < 16 && !found; j++)
+            for(int j = 0; j < 16; j++)
             {
                 if(board[i][j] == '-')
                 {
                     point[0] = i;
                     point[1] = j;
-                    found = true;
+                    return point;
                 }
             }
         }
@@ -60,22 +61,8 @@ public class HexadokuBoardBuilder
     {
         ArrayList<Character> choices = new ArrayList<>();
 
-        choices.add('0');
-        choices.add('1');
-        choices.add('2');
-        choices.add('3');
-        choices.add('4');
-        choices.add('5');
-        choices.add('6');
-        choices.add('7');
-        choices.add('8');
-        choices.add('9');
-        choices.add('A');
-        choices.add('B');
-        choices.add('C');
-        choices.add('D');
-        choices.add('E');
-        choices.add('F');
+        for(int i = 0; i < this.choices.length; i++)
+            choices.add(this.choices[i]);
 
         return choices;
     }
